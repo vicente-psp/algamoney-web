@@ -19,6 +19,8 @@ import { FormControl } from '@angular/forms';
     .ui-messages-error {
       margin-top: 3px;
       margin-bottom: 0px;
+      padding-top: 5px;
+      padding-bottom: 5px;
     }
     p {
       margin-top: 0;
