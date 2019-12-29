@@ -31,8 +31,7 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
     PessoasPesquisaComponent
   ],
   imports: [
-    CommonModule,
-    FormsModule,
+    SharedModule,
 
     // imports primeng
     InputTextModule,
@@ -44,8 +43,6 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
     SelectButtonModule,
     DropdownModule,
     InputMaskModule,
-
-    SharedModule
   ]
 })
 export class PessoasModule { }

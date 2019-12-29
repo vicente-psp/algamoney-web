@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
+// import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
@@ -22,18 +22,8 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
 
 
 @NgModule({
-  declarations: [
-    LancamentoCadastroComponent,
-    LancamentosPesquisaComponent,
-    LancamentosGridComponent
-  ],
-  exports: [
-    LancamentoCadastroComponent,
-    LancamentosPesquisaComponent
-  ],
   imports: [
-    CommonModule,
-    FormsModule,
+    SharedModule,
 
     CurrencyMaskModule,
 
@@ -46,8 +36,15 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
     CalendarModule,
     SelectButtonModule,
     DropdownModule,
-
-    SharedModule
-  ]
+  ],
+  declarations: [
+    LancamentoCadastroComponent,
+    LancamentosPesquisaComponent,
+    LancamentosGridComponent
+  ],
+  exports: [
+    LancamentoCadastroComponent,
+    LancamentosPesquisaComponent
+  ],
 })
 export class LancamentosModule { }
