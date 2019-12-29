@@ -1,5 +1,5 @@
 <div class="container">
-  <form>
+  <form #formulario="ngForm">
     <div class="ui-g">
       <div class="ui-g-12">
         <h1>Nova Pessoa</h1>
@@ -7,40 +7,82 @@
 
       <div class="ui-g-12 ui-fluid">
         <label>Nome</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="nome"
+         ngModel #nome="ngModel" required minlength="3" maxlength="50">
+
+        <app-error-messages
+          [control]="nome" isGenderFemale="false" label="Nome">
+        </app-error-messages>
       </div>
 
       <div class="ui-g-12 ui-md-9 ui-fluid">
         <label>Logradouro</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="logradouro"
+          ngModel #logradouro="ngModel" required maxlength="30">
+
+        <app-error-messages
+          [control]="logradouro" isGenderFemale="false" label="Logradouro">
+        </app-error-messages>
       </div>
+
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label>Número</label>
-        <input pInputText type="numer">
+        <input pInputText type="numer" name="numero"
+        ngModel #numero="ngModel" required maxlength="30">
+
+        <app-error-messages
+          [control]="numero" isGenderFemale="false" label="Número">
+        </app-error-messages>
       </div>
+
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Complemento</label>
-        <input pInputText type="numer">
+        <input pInputText type="text" name="complemento"
+        ngModel #complemento="ngModel" maxlength="30">
       </div>
+
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label>Bairro</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="bairro"
+        ngModel #bairro="ngModel" required maxlength="30">
+
+        <app-error-messages
+          [control]="bairro" isGenderFemale="false" label="Bairro">
+        </app-error-messages>
       </div>
+
       <div class="ui-g-12 ui-md-2 ui-fluid">
         <label>CEP</label>
-        <p-inputMask mask="99.999-999"></p-inputMask>
+        <p-inputMask mask="99.999-999" name="cep"
+        ngModel #cep="ngModel" required></p-inputMask>
+
+        <app-error-messages
+          [control]="cep" isGenderFemale="false" label="CEP">
+        </app-error-messages>
       </div>
+
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Cidade</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="cidade"
+        ngModel #cidade="ngModel" required maxlength="30">
+
+        <app-error-messages
+          [control]="cidade" isGenderFemale="false" label="Cidade">
+        </app-error-messages>
       </div>
+
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Estado</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="estado"
+        ngModel #estado="ngModel" required maxlength="30">
+
+        <app-error-messages
+          [control]="estado" isGenderFemale="false" label="Estado">
+        </app-error-messages>
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar" style="margin-right: 2px;"></button>
+        <button [disabled]="!formulario.valid" pButton type="submit" label="Salvar" style="margin-right: 2px;"></button>
         <button pButton type="button" label="Novo" class="ui-button-info" style="margin-right: 2px; margin-left: 2px;"></button>
         <a href="javascript:;" style="margin-left: 2px;">Voltar para a pesquisa</a>
       </div>

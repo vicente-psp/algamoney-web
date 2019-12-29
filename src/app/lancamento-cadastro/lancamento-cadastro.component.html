@@ -1,5 +1,5 @@
 <div class="container">
-  <form>
+  <form #formulario="ngForm">
     <div class="ui-g">
       <div class="ui-g-12">
         <h1>Novo Lançamento</h1>
@@ -11,7 +11,12 @@
 
       <div class="ui-g-6 ui-md-2 ui-fluid">
         <label>Vencimento</label>
-        <p-calendar dateFormat="dd/mm/yy"></p-calendar>
+        <p-calendar name="vencimento" dateFormat="dd/mm/yy"
+        ngModel #vencimento="ngModel" required></p-calendar>
+
+        <app-error-messages
+          [control]="vencimento" isGenderFemale="false" label="Vencimento">
+        </app-error-messages>
       </div>
       <div class="ui-g-6 ui-md-2 ui-fluid">
         <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
@@ -20,28 +25,33 @@
 
       <div class="ui-g-12 ui-md-9 ui-fluid">
         <label>Descrição</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="descricao" ngModel
+         #descricao="ngModel" required minlength="3" maxlength="50">
+
+         <app-error-messages [control]="descricao" label="Descrição"></app-error-messages>
       </div>
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label>Valor</label>
-        <input pInputText type="text" placeholder="R$ 0,00"
+        <input pInputText type="text" placeholder="R$ 0,00" name="valor" ngModel required #valor="ngModel"
          currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }">
+
+         <app-error-messages [control]="valor" isGenderFemale="false" label="Valor"></app-error-messages>
       </div>
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Categoria</label>
-        <p-dropdown [options]="categorias" placeholder="Selecione"></p-dropdown>
+        <p-dropdown [options]="categorias" placeholder="Selecione" required></p-dropdown>
       </div>
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Pessoa</label>
-        <p-dropdown [options]="pessoas" filter="true" placeholder="Selecione"></p-dropdown>
+        <p-dropdown [options]="pessoas" filter="true" placeholder="Selecione" required></p-dropdown>
       </div>
       <div class="ui-g-12 ui-fluid">
         <label>Obervação</label>
-        <textarea rows="3" pInputTextarea></textarea>
+        <textarea rows="3" pInputTextarea maxlength="100"></textarea>
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar" style="margin-right: 2px;"></button>
+        <button [disabled]="!formulario.valid" pButton type="submit" label="Salvar" style="margin-right: 2px;"></button>
         <button pButton type="button" label="Novo" class="ui-button-info" style="margin-right: 2px; margin-left: 2px;"></button>
         <a href="javascript:;" style="margin-left: 2px;">Voltar para a pesquisa</a>
       </div>
