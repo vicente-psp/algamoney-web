@@ -9,7 +9,7 @@
 
       <div class="ui-g-12 ui-fluid">
         <label>Descrição</label>
-        <input pInputText type="text" name="descricao" [(ngModel)]="filtro.descricao">
+        <input pInputText type="text" name="descricao" [(ngModel)]="filtro.descricao" (keyup)=keyupDescricao()>
       </div>
 
       <div class="ui-g-12">
