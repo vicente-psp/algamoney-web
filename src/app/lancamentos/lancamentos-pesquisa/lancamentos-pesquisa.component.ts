@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LancamentosPesquisaComponent implements OnInit {
 
-  lancamentos = [];
+  public descricao: string;
+  public lancamentos = [];
 
   constructor(private lancamentosService: LancamentosService) { }
 
@@ -17,9 +18,8 @@ export class LancamentosPesquisaComponent implements OnInit {
   }
 
   private listar(): void {
-    this.lancamentosService.getLista().subscribe(
+    this.lancamentosService.getLista({descricao: this.descricao}).subscribe(
       data => {
-        console.log(data[1]);
         this.lancamentos = data;
       },
       err => {
