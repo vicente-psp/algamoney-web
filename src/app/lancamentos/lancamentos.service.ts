@@ -6,10 +6,12 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 
-export interface LancamentoFiltro {
+export class LancamentoFiltro {
   descricao: string;
   dataVencimentoInicio: Date;
   dataVencimentoFim: Date;
+  pagina = 0;
+  itensPorPagina = 5;
 }
 
 @Injectable({
@@ -27,6 +29,9 @@ export class LancamentosService {
 
     let params = new HttpParams();
 
+    params = params.set('page', filtro.pagina.toString());
+    params = params.set('size', filtro.itensPorPagina.toString());
+
     if (filtro.descricao) {
       params = params.set('descricao', filtro.descricao);
     }
@@ -39,6 +44,14 @@ export class LancamentosService {
 
     // const params: HttpParams = new HttpParams().set('size', '5').set('page', '1');
     return this.http.get(this.API_ENDPOINT + '?resumo', {headers, params})
-                        .pipe(map((response: any) => response.content));
+                        .pipe(
+                          map((response: any) => {
+                            const obj = {
+                              content: response.content,
+                              total: response.totalElements
+                            };
+                            return obj;
+                          }
+                        ));
   }
 }
