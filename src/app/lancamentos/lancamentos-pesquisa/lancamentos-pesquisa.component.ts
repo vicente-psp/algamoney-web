@@ -1,4 +1,4 @@
-import { LancamentosService } from './../lancamentos.service';
+import { LancamentosService, LancamentoFiltro } from './../lancamentos.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,17 +9,26 @@ import { Component, OnInit } from '@angular/core';
 export class LancamentosPesquisaComponent implements OnInit {
 
   public descricao: string;
+  public dataVencimentoInicio: Date;
+  public dataVencimentoFim: Date;
+
   public lancamentos = [];
 
   constructor(private lancamentosService: LancamentosService) { }
 
   ngOnInit() {
-    this.listar();
+    // this.listar();
   }
 
   private listar(): void {
-    this.lancamentosService.getLista({descricao: this.descricao}).subscribe(
+    const filtro: LancamentoFiltro = {
+      descricao: this.descricao,
+      dataVencimentoInicio: this.dataVencimentoInicio,
+      dataVencimentoFim: this.dataVencimentoFim
+    }
+    this.lancamentosService.getLista(filtro).subscribe(
       data => {
+        console.log('data: ', data);
         this.lancamentos = data;
       },
       err => {
