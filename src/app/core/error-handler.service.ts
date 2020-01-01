@@ -15,9 +15,22 @@ export class ErrorHandlerService {
     if (typeof errorResponse === 'string') {
       msg = errorResponse;
     } else {
-      msg = 'Erro ao processar serviço remoto. Tente novamente.';
-      console.error('Ocorreu um erro', errorResponse);
+      if (!this.isNullOrUndefined(errorResponse.error[0]) &&
+       !this.isNullOrUndefined(errorResponse.error[0].userMessage)) {
+         msg = errorResponse.error[0].userMessage;
+         if (!this.isNullOrUndefined(errorResponse.error[0].developerMessage)) {
+           console.error('Ocorreu um erro', errorResponse.error);
+         }
+      } else {
+        msg = 'Erro ao processar serviço remoto. Tente novamente.';
+        console.error('Ocorreu um erro', errorResponse);
+      }
     }
     this.toastyService.error(msg);
   }
+
+  private isNullOrUndefined(obj: any): boolean {
+    return obj === null || obj === undefined;
+  }
+
 }
