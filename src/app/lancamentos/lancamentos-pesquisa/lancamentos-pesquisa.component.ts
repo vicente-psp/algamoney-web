@@ -1,3 +1,4 @@
+import { ErrorHandlerService } from './../../core/error-handler.service';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/api/public_api';
@@ -31,7 +32,8 @@ export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
   constructor(
     private lancamentosService: LancamentosService,
     private toastyService: ToastyService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private errorHandlerService: ErrorHandlerService
   ) { }
 
   ngOnInit() {
@@ -55,7 +57,7 @@ export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
         this.totalRegistros = data.total;
       },
       err => {
-        console.error(err);
+        this.errorHandlerService.handleError(err);
       }
     );
   }
@@ -84,7 +86,9 @@ export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
         this.tabela.reset();
         this.toastyService.success('Lançamento excluído com sucesso!');
       },
-      err => console.error(err)
+      err => {
+        this.errorHandlerService.handleError(err);
+      }
     );
   }
 
