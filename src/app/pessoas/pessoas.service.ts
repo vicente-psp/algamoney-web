@@ -17,6 +17,8 @@ export class PessoasService {
 
   private readonly API_ENDPOINT = 'http://localhost:8080/pessoas';
 
+  private headers = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+
   constructor(private httpClient: HttpClient) { }
 
   public listAll() {
@@ -24,9 +26,6 @@ export class PessoasService {
   }
 
   public getLista(filtro: PessoaFiltro) {
-    const headers: HttpHeaders = new HttpHeaders()
-      .set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-
     let params = new HttpParams();
 
     params = params.set('page', filtro.pagina.toString());
@@ -36,7 +35,7 @@ export class PessoasService {
       params = params.set('nome', filtro.nome);
     }
 
-    return this.httpClient.get(this.API_ENDPOINT, {headers, params})
+    return this.httpClient.get(this.API_ENDPOINT, {headers: this.headers, params})
     .pipe(
       map((response: any) => {
         const obj = {
@@ -46,6 +45,10 @@ export class PessoasService {
         return obj;
       }
     ));
+  }
+
+  public excluir(id: number) {
+    return this.httpClient.delete(`${this.API_ENDPOINT}/${id}`, {headers: this.headers});
   }
 
 }
