@@ -23,7 +23,7 @@ export class LancamentosService {
 
   private headers = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   public getLista(filtro: LancamentoFiltro) {
     let params = new HttpParams();
@@ -42,7 +42,7 @@ export class LancamentosService {
     }
 
     // const params: HttpParams = new HttpParams().set('size', '5').set('page', '1');
-    return this.http.get(this.API_ENDPOINT + '?resumo', {headers: this.headers, params})
+    return this.httpClient.get(this.API_ENDPOINT + '?resumo', {headers: this.headers, params})
                         .pipe(
                           map((response: any) => {
                             const obj = {
@@ -55,6 +55,6 @@ export class LancamentosService {
   }
 
   public excluir(id: number) {
-    return this.http.delete(`${this.API_ENDPOINT}/${id}`, {headers: this.headers});
+    return this.httpClient.delete(`${this.API_ENDPOINT}/${id}`, {headers: this.headers});
   }
 }
