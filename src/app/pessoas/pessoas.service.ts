@@ -17,7 +17,9 @@ export class PessoasService {
 
   private readonly API_ENDPOINT = 'http://localhost:8080/pessoas';
 
-  private headers = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+  private headers = new HttpHeaders()
+                    .set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+                    .set('Content-Type', 'application/json');
 
   constructor(private httpClient: HttpClient) { }
 
@@ -49,6 +51,10 @@ export class PessoasService {
 
   public excluir(id: number) {
     return this.httpClient.delete(`${this.API_ENDPOINT}/${id}`, {headers: this.headers});
+  }
+
+  public alterarStatus(id: number, status: boolean) {
+    return this.httpClient.put(`${this.API_ENDPOINT}/${id}/ativo`, status, {headers: this.headers});
   }
 
 }
