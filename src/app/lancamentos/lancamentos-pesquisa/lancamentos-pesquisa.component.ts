@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/api/public_api';
+import { Table } from 'primeng/table/table';
 
-import { LancamentosService, LancamentoFiltro } from './../lancamentos.service';
 import { Subscription, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
+import { LancamentosService, LancamentoFiltro } from './../lancamentos.service';
 
 
 @Component({
@@ -14,12 +16,14 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
 
-  public totalRegistros = 0;
-  public lancamentos = [];
-  public filtro = new LancamentoFiltro();
+  @ViewChild('tabela', {static: true}) tabela: Table;
 
-  private subscriptionDescricao: Subscription;
-  private subjectDescricao: Subject<string> = new Subject();
+    public totalRegistros = 0;
+    public lancamentos = [];
+    public filtro = new LancamentoFiltro();
+
+    private subscriptionDescricao: Subscription;
+    private subjectDescricao: Subject<string> = new Subject();
 
   constructor(private lancamentosService: LancamentosService) { }
 
@@ -56,6 +60,13 @@ export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
 
   public keyupDescricao(): void {
     this.subjectDescricao.next(this.filtro.descricao);
+  }
+
+  public excluir(id: number): void {
+    this.lancamentosService.excluir(id).subscribe(
+      () => this.tabela.reset(),
+      err => console.error(err)
+    );
   }
 
 }
