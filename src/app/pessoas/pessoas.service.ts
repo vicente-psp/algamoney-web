@@ -24,7 +24,7 @@ export class PessoasService {
   constructor(private httpClient: HttpClient) { }
 
   public listAll() {
-    return this.httpClient.get(this.API_ENDPOINT);
+    return this.httpClient.get(this.API_ENDPOINT, {headers: this.headers});
   }
 
   public getLista(filtro: PessoaFiltro) {
