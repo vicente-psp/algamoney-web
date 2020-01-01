@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/api/public_api';
+import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table/table';
 
 import { Subscription, Subject } from 'rxjs';
@@ -29,7 +30,8 @@ export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
 
   constructor(
     private lancamentosService: LancamentosService,
-    private toastyService: ToastyService
+    private toastyService: ToastyService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit() {
@@ -67,7 +69,16 @@ export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
     this.subjectDescricao.next(this.filtro.descricao);
   }
 
-  public excluir(id: number): void {
+  public confirmarExclusao(id: number): void {
+    this.confirmationService.confirm({
+      message: `Deseja realmente excluir o registro id ${id}?`,
+      accept: () => {
+        this.excluir(id);
+      }
+    });
+  }
+
+  private excluir(id: number): void {
     this.lancamentosService.excluir(id).subscribe(
       () => {
         this.tabela.reset();
