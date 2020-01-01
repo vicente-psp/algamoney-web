@@ -1,10 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
+import { ToastyService } from 'ng2-toasty';
+import { ConfirmationService } from 'primeng/api';
 import { LazyLoadEvent } from 'primeng/api/public_api';
-
-import { PessoaFiltro, PessoasService } from './../pessoas.service';
+import { Table } from 'primeng/table/table';
 import { Subscription, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
+import { PessoaFiltro, PessoasService } from './../pessoas.service';
+import { ErrorHandlerService } from './../../core/error-handler.service';
 
 
 @Component({
@@ -14,6 +18,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class PessoasPesquisaComponent implements OnInit, OnDestroy {
 
+  @ViewChild('tabela', {static: true}) tabela: Table;
+
   public totalRegistros = 0;
   public pessoas = [];
   public filtro = new PessoaFiltro();
@@ -21,7 +27,12 @@ export class PessoasPesquisaComponent implements OnInit, OnDestroy {
   private subscriptionNome: Subscription;
   private subjectNome: Subject<string> = new Subject();
 
-  constructor(private pessoasService: PessoasService) { }
+  constructor(
+    private pessoasService: PessoasService,
+    private confirmationService: ConfirmationService,
+    private errorHandlerService: ErrorHandlerService,
+    private toastyService: ToastyService
+  ) { }
 
   ngOnInit() {
     this.subscriptionNome = this.subjectNome.pipe(
@@ -57,6 +68,27 @@ export class PessoasPesquisaComponent implements OnInit, OnDestroy {
 
   public keyupNome(): void {
     this.subjectNome.next(this.filtro.nome);
+  }
+
+  public confirmarExclusao(id: number): void {
+    this.confirmationService.confirm({
+      message: `Deseja realmente excluir o registro id ${id}?`,
+      accept: () => {
+        this.excluir(id);
+      }
+    });
+  }
+
+  private excluir(id: number): void {
+    this.pessoasService.excluir(id).subscribe(
+      () => {
+        this.tabela.reset();
+        this.toastyService.success('Pessoa excluída com sucesso!');
+      },
+      err => {
+        this.errorHandlerService.handleError(err);
+      }
+    );
   }
 
 }
