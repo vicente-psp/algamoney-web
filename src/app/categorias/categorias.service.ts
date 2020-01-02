@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class CategoriasService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public listAll() {
+  public listAll(): Observable<any> | any {
     return this.httpClient.get(this.API_ENDPOINT, {headers: this.headers});
   }
 
