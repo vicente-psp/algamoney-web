@@ -2,8 +2,10 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { map } from 'rxjs/operators';
-
+import { Observable } from 'rxjs';
 import * as moment from 'moment';
+
+import { Lancamento } from '../core/models/lancamento.model';
 
 
 export class LancamentoFiltro {
@@ -57,4 +59,9 @@ export class LancamentosService {
   public excluir(id: number) {
     return this.httpClient.delete(`${this.API_ENDPOINT}/${id}`, {headers: this.headers});
   }
+
+  public salvar(lancamento: Lancamento): Observable<Lancamento> | any {
+    return this.httpClient.post(this.API_ENDPOINT, lancamento, {headers: this.headers});
+  }
+
 }

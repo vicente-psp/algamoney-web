@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
+import { ToastyService } from 'ng2-toasty';
+
+import { CategoriasService } from '../../categorias/categorias.service';
 import { ErrorHandlerService } from './../../core/error-handler.service';
-import { CategoriasService } from 'src/app/categorias/categorias.service';
+import { Lancamento } from '../../core/models/lancamento.model';
+import { LancamentosService } from './../lancamentos.service';
 import { PessoasService } from './../../pessoas/pessoas.service';
 
 
@@ -12,6 +17,7 @@ import { PessoasService } from './../../pessoas/pessoas.service';
 })
 export class LancamentoCadastroComponent implements OnInit {
 
+  public lancamento = new Lancamento();
   public categorias = [];
   public pessoas = [];
   public tipos = [
@@ -20,10 +26,11 @@ export class LancamentoCadastroComponent implements OnInit {
   ];
 
   constructor(
-
+    private lancamentosService: LancamentosService,
     private errorHandlerService: ErrorHandlerService,
     private categoriasService: CategoriasService,
     private pessoasService: PessoasService,
+    private toastyService: ToastyService
     ) { }
 
   ngOnInit() {
@@ -43,8 +50,18 @@ export class LancamentoCadastroComponent implements OnInit {
   private listAllPessoas(): void {
     this.pessoasService.listAll().subscribe(
       data => {
-        console.log(data);
         this.pessoas = data.map(pessoa => ({ value: pessoa.id, label: pessoa.nome }));
+      },
+      err => this.errorHandlerService.handleError(err)
+    );
+  }
+
+  public salvar(form: FormControl): void {
+    this.lancamentosService.salvar(this.lancamento).subscribe(
+      () => {
+        this.toastyService.success('Lançamento cadastrado com sucesso');
+        form.reset();
+        setTimeout(() => this.lancamento = new Lancamento(), 100);
       },
       err => this.errorHandlerService.handleError(err)
     );
