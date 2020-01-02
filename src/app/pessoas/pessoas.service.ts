@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
@@ -23,8 +24,9 @@ export class PessoasService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public listAll() {
-    return this.httpClient.get(this.API_ENDPOINT, {headers: this.headers});
+  public listAll(): Observable<any> | any {
+    return this.httpClient.get(this.API_ENDPOINT, {headers: this.headers})
+    .pipe(map((response: any) => response.content));
   }
 
   public getLista(filtro: PessoaFiltro) {
