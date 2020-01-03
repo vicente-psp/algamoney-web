@@ -1,5 +1,5 @@
 <div class="container">
-  <form #formulario="ngForm">
+  <form #formulario="ngForm" (ngSubmit)="salvar(formulario)">
     <div class="ui-g">
       <div class="ui-g-12">
         <h1>Nova Pessoa</h1>
@@ -8,7 +8,7 @@
       <div class="ui-g-12 ui-fluid">
         <label>Nome</label>
         <input pInputText type="text" name="nome"
-         ngModel #nome="ngModel" required minlength="3" maxlength="50">
+         ngModel #nome="ngModel" required minlength="3" maxlength="50" [(ngModel)]="pessoa.nome">
 
         <app-error-messages
           [control]="nome" isGenderFemale="false" label="Nome">
@@ -18,7 +18,7 @@
       <div class="ui-g-12 ui-md-9 ui-fluid">
         <label>Logradouro</label>
         <input pInputText type="text" name="logradouro"
-          ngModel #logradouro="ngModel" required maxlength="30">
+          ngModel #logradouro="ngModel" required maxlength="30" [(ngModel)]="pessoa.endereco.logradouro">
 
         <app-error-messages
           [control]="logradouro" isGenderFemale="false" label="Logradouro">
@@ -28,7 +28,7 @@
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label>Número</label>
         <input pInputText type="numer" name="numero"
-        ngModel #numero="ngModel" required maxlength="30">
+        ngModel #numero="ngModel" required maxlength="30" [(ngModel)]="pessoa.endereco.numero">
 
         <app-error-messages
           [control]="numero" isGenderFemale="false" label="Número">
@@ -38,13 +38,13 @@
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Complemento</label>
         <input pInputText type="text" name="complemento"
-        ngModel #complemento="ngModel" maxlength="30">
+        ngModel #complemento="ngModel" maxlength="30" [(ngModel)]="pessoa.endereco.complemento">
       </div>
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label>Bairro</label>
         <input pInputText type="text" name="bairro"
-        ngModel #bairro="ngModel" required maxlength="30">
+        ngModel #bairro="ngModel" required maxlength="30" [(ngModel)]="pessoa.endereco.bairro">
 
         <app-error-messages
           [control]="bairro" isGenderFemale="false" label="Bairro">
@@ -54,7 +54,7 @@
       <div class="ui-g-12 ui-md-2 ui-fluid">
         <label>CEP</label>
         <p-inputMask mask="99.999-999" name="cep"
-        ngModel #cep="ngModel" required></p-inputMask>
+        ngModel #cep="ngModel" required [(ngModel)]="pessoa.endereco.cep"></p-inputMask>
 
         <app-error-messages
           [control]="cep" isGenderFemale="false" label="CEP">
@@ -64,7 +64,7 @@
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Cidade</label>
         <input pInputText type="text" name="cidade"
-        ngModel #cidade="ngModel" required maxlength="30">
+        ngModel #cidade="ngModel" required maxlength="30" [(ngModel)]="pessoa.endereco.cidade">
 
         <app-error-messages
           [control]="cidade" isGenderFemale="false" label="Cidade">
@@ -74,7 +74,7 @@
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Estado</label>
         <input pInputText type="text" name="estado"
-        ngModel #estado="ngModel" required maxlength="30">
+        ngModel #estado="ngModel" required maxlength="30" [(ngModel)]="pessoa.endereco.estado">
 
         <app-error-messages
           [control]="estado" isGenderFemale="false" label="Estado">
