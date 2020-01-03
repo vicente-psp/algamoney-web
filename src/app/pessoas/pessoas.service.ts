@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Pessoa } from '../core/models/pessoa.model';
 
 
 export class PessoaFiltro {
@@ -57,6 +58,10 @@ export class PessoasService {
 
   public alterarStatus(id: number, status: boolean) {
     return this.httpClient.put(`${this.API_ENDPOINT}/${id}/ativo`, status, {headers: this.headers});
+  }
+
+  public salvar(pessoa: Pessoa): Observable<Pessoa> | any {
+    return this.httpClient.post(this.API_ENDPOINT, pessoa, {headers: this.headers});
   }
 
 }
