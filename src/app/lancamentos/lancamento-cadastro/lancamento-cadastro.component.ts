@@ -60,8 +60,8 @@ export class LancamentoCadastroComponent implements OnInit {
     this.lancamentosService.salvar(this.lancamento).subscribe(
       () => {
         this.toastyService.success('Lançamento cadastrado com sucesso');
-        form.reset();
-        setTimeout(() => this.lancamento = new Lancamento(), 100);
+        form.reset(new Lancamento());
+        this.lancamento = new Lancamento();
       },
       err => this.errorHandlerService.handleError(err)
     );
