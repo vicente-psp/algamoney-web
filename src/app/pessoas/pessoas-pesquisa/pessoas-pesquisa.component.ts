@@ -92,7 +92,6 @@ export class PessoasPesquisaComponent implements OnInit, OnDestroy {
   }
 
   public alterarStatus(pessoa: any): void {
-    console.log('pessoa: ', pessoa);
     this.pessoasService.alterarStatus(pessoa.id, !pessoa.ativo).subscribe(
       () => {
         this.tabela.reset();
