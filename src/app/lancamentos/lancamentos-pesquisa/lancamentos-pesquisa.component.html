@@ -63,7 +63,8 @@
                   {{ lancamento.valor | currency:'BRL':'symbol':'1.2-2' }}
                 </td>
                 <td class="col-acoes">
-                  <a pButton icon="pi pi-pencil" style="margin-right: 1px;" pTooltip="Editar" tooltipPosition="top"></a>
+                  <a pButton icon="pi pi-pencil" style="margin-right: 1px;" pTooltip="Editar"
+                   tooltipPosition="top" [routerLink]="['salvar', lancamento.id]"></a>
                   <button pButton icon="pi pi-trash" style="margin-left: 1px;"
                    pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(lancamento.id)"></button>
               </td>
@@ -74,7 +75,7 @@
   </div>
 
   <div class="ui-g-12">
-    <a pButton label="Novo lançamento"></a>
+    <a pButton label="Novo lançamento" routerLink="salvar"></a>
   </div>
 
 </div>
