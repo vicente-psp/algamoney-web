@@ -64,4 +64,27 @@ export class LancamentosService {
     return this.httpClient.post(this.API_ENDPOINT, lancamento, {headers: this.headers});
   }
 
+  public alterar(lancamento: Lancamento, id: number): Observable<Lancamento> | any {
+    return this.httpClient.put(`${this.API_ENDPOINT}/${id}`, lancamento, {headers: this.headers});
+  }
+
+  public getDados(id: number): Observable<Lancamento> | any {
+    return this.httpClient.get(`${this.API_ENDPOINT}/${id}`, {headers: this.headers})
+                .pipe(map((lancamento: Lancamento) => this.dateStringsToDate(lancamento)));
+  }
+
+  private dateStringsToDate(lancamento: Lancamento): Lancamento {
+    if (!this.isNullOrUndefined(lancamento.dataVencimento)) {
+      lancamento.dataVencimento = moment(lancamento.dataVencimento, 'YYYY-MM-DD').toDate();
+    }
+    if (!this.isNullOrUndefined(lancamento.dataPagamento)) {
+      lancamento.dataPagamento = moment(lancamento.dataPagamento, 'YYYY-MM-DD').toDate();
+    }
+    return lancamento;
+  }
+
+  public isNullOrUndefined(obj: any): boolean {
+    return obj === null || obj === undefined;
+  }
+
 }
