@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, LOCALE_ID } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { ToastyModule } from 'ng2-toasty';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -20,6 +21,7 @@ import { ErrorHandlerService } from './error-handler.service';
   ],
   imports: [
     CommonModule,
+    RouterModule,
 
     ToastyModule.forRoot(),
     ConfirmDialogModule,
