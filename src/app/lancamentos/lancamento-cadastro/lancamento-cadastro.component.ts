@@ -123,6 +123,12 @@ export class LancamentoCadastroComponent implements OnInit {
     );
   }
 
+  public novoLancamento(form: FormControl): void {
+    form.reset(new Lancamento());
+    this.lancamento = new Lancamento();
+    this.router.navigateByUrl('/lancamentos/salvar');
+  }
+
   private isValidNumber(obj: any): boolean {
     if (obj === null || obj === undefined) {
       return false;

@@ -53,7 +53,7 @@
 
       <div class="ui-g-12">
         <button [disabled]="!formulario.valid" pButton type="submit" label="Salvar" style="margin-right: 2px;"></button>
-        <button pButton type="button" label="Novo" class="ui-button-info" style="margin-right: 2px; margin-left: 2px;"></button>
+        <button pButton type="button" (click)="novoLancamento(formulario)" label="Novo" class="ui-button-info" style="margin-right: 2px; margin-left: 2px;"></button>
         <a routerLink="/lancamentos" style="margin-left: 2px;">Voltar para a pesquisa</a>
       </div>
     </div>
