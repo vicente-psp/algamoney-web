@@ -11,9 +11,9 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
 import { SharedModule } from './../shared/shared.module';
+import { LancamentosRoutingModule } from './lancamentos-routing.module';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
-import { LancamentosRoutingModule } from './lancamentos-routing.module';
 
 
 

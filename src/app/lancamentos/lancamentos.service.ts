@@ -87,4 +87,11 @@ export class LancamentosService {
     return obj === null || obj === undefined;
   }
 
+  public isValidNumber(obj: any): boolean {
+    if (this.isNullOrUndefined(obj)) {
+      return false;
+    }
+    return Number.parseInt(obj, 10) > 0;
+  }
+
 }

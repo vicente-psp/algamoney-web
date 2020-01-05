@@ -95,7 +95,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   public submitForm(form: FormControl): void {
-    if (this.isValidNumber(this.lancamento.id)) {
+    if (this.lancamentosService.isValidNumber(this.lancamento.id)) {
       this.alterar();
     } else {
       this.salvar(form);
@@ -117,9 +117,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.lancamentosService.alterar(this.lancamento, this.lancamento.id).subscribe(
       () => {
         this.toastyService.success('Lançamento atualizado com sucesso');
-        setTimeout(() => {
-          this.router.navigateByUrl('/lancamentos');
-        }, 1000);
+        this.router.navigateByUrl('/lancamentos');
       },
       err => {
         this.errorHandlerService.handleError(err);
@@ -134,13 +132,6 @@ export class LancamentoCadastroComponent implements OnInit {
     form.reset(new Lancamento());
     this.lancamento = new Lancamento();
     this.router.navigateByUrl('/lancamentos/salvar');
-  }
-
-  private isValidNumber(obj: any): boolean {
-    if (obj === null || obj === undefined) {
-      return false;
-    }
-    return Number.parseInt(obj, 10) > 0;
   }
 
 }
