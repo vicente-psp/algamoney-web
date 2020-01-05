@@ -48,7 +48,7 @@
                 </td>
                 <td class="col-acoes">
                   <a pButton icon="pi pi-pencil" style="margin-right: 1px;" pTooltip="Editar"
-                   tooltipPosition="top"></a>
+                   tooltipPosition="top" [routerLink]="['salvar', pessoa.id]"></a>
                   <button pButton icon="pi pi-trash" style="margin-left: 1px;" pTooltip="Excluir"
                    tooltipPosition="top" (click)="confirmarExclusao(pessoa.id)"></button>
               </td>
@@ -59,7 +59,7 @@
   </div>
 
   <div class="ui-g-12">
-    <a pButton label="Novo lançamento"></a>
+    <a pButton label="Nova pessoa" routerLink="salvar"></a>
   </div>
 
 </div>

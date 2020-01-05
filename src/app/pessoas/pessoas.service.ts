@@ -64,4 +64,23 @@ export class PessoasService {
     return this.httpClient.post(this.API_ENDPOINT, pessoa, {headers: this.headers});
   }
 
+  public alterar(pessoa: Pessoa, id: number): Observable<Pessoa> | any {
+    return this.httpClient.put(`${this.API_ENDPOINT}/${id}`, pessoa, {headers: this.headers});
+  }
+
+  public getDados(id: number): Observable<Pessoa> | any {
+    return this.httpClient.get(`${this.API_ENDPOINT}/${id}`, {headers: this.headers});
+  }
+
+  public isNullOrUndefined(obj: any): boolean {
+    return obj === null || obj === undefined;
+  }
+
+  public isValidNumber(obj: any): boolean {
+    if (this.isNullOrUndefined(obj)) {
+      return false;
+    }
+    return Number.parseInt(obj, 10) > 0;
+  }
+
 }
