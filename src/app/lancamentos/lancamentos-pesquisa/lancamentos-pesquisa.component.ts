@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { ToastyService } from 'ng2-toasty';
 import { ConfirmationService } from 'primeng/api';
@@ -31,10 +32,12 @@ export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
     private lancamentosService: LancamentosService,
     private toastyService: ToastyService,
     private confirmationService: ConfirmationService,
-    private errorHandlerService: ErrorHandlerService
+    private errorHandlerService: ErrorHandlerService,
+    private title: Title
   ) { }
 
   ngOnInit() {
+    this.title.setTitle('Pesquisa de lançamentos');
     this.subscriptionDescricao = this.subjectDescricao.pipe(
       debounceTime(400),
       distinctUntilChanged()

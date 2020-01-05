@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { ToastyService } from 'ng2-toasty';
@@ -26,7 +27,7 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Receita', value: 'RECEITA' },
     { label: 'Despesa', value: 'DESPESA' }
   ];
-  public title = 'Novo Lançamento';
+  public componentTitle = 'Novo Lançamento';
 
   constructor(
     private lancamentosService: LancamentosService,
@@ -35,7 +36,8 @@ export class LancamentoCadastroComponent implements OnInit {
     private pessoasService: PessoasService,
     private toastyService: ToastyService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: Title
     ) { }
 
   ngOnInit() {
@@ -45,8 +47,13 @@ export class LancamentoCadastroComponent implements OnInit {
           const id = Number.parseInt(params.get('id'), 10);
           if (id > 0) {
             this.getLancamento(id);
-            this.title = 'Edição de Lançamento';
+            this.componentTitle = 'Edição de Lançamento';
+            this.title.setTitle('Edição de lançamento');
+          } else {
+            this.title.setTitle('Novo lançamento');
           }
+        } else {
+          this.title.setTitle('Novo lançamento');
         }
       }
     );
