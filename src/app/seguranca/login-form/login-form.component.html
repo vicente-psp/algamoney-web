@@ -1,0 +1,32 @@
+<div class="container">
+  <form #formulario="ngForm" (ngSubmit)="login(formulario)" class="container-login">
+    <div class="ui-md-5 ui-sm-12">
+      <div class="ui-g-12 ui-fluid">
+        <h1>Login</h1>
+      </div>
+      <div class="ui-g-12 ui-fluid">
+        <label>email</label>
+        <input pInputText type="email" name="email" placeholder="Email"
+         ngModel #email="ngModel" email="true" required>
+
+        <app-error-messages
+          [control]="email" isGenderFemale="false" errorMinlenght="false" errorEmail="true" label="Email">
+        </app-error-messages>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label>Senha</label>
+        <input pInputText type="password" name="senha"
+          ngModel #senha="ngModel" required minlength="3">
+
+        <app-error-messages
+          [control]="senha" label="Senha">
+        </app-error-messages>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <button [disabled]="!formulario.valid" [style.cursor]="!formulario.valid ? 'inherit' : 'pointer'" pButton type="submit" label="Login"></button>
+      </div>
+    </div>
+  </form>
+</div>
