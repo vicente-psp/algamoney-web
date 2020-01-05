@@ -17,14 +17,6 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
 
 
 @NgModule({
-  declarations: [
-    PessoaCadastroComponent,
-    PessoasPesquisaComponent
-  ],
-  exports: [
-    PessoaCadastroComponent,
-    PessoasPesquisaComponent
-  ],
   imports: [
     SharedModule,
 
@@ -38,6 +30,12 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
     SelectButtonModule,
     DropdownModule,
     InputMaskModule,
-  ]
+  ],
+  declarations: [
+    PessoaCadastroComponent,
+    PessoasPesquisaComponent
+  ],
+  exports: [
+  ],
 })
 export class PessoasModule { }
