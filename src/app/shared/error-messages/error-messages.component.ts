@@ -14,6 +14,11 @@ import { FormControl } from '@angular/forms';
         {{ getTextErrorMinlenght() }}
       </p>
     </div>
+    <div *ngIf="isErrorEmail()" class="ui-messages ui-messages-error">
+      <p>
+        {{ getTextErrorEmail() }}
+      </p>
+    </div>
   `,
   styles: [`
     .ui-messages-error {
@@ -42,6 +47,9 @@ export class ErrorMessagesComponent {
   @Input() errorMinlenght = true;
   @Input() errorMinlenghtText = '';
 
+  @Input() errorEmail = false;
+  @Input() errorEmailText = '';
+
 
   public isErrorRequired(): boolean {
     return this.errorRequired && this.control.hasError('required') && this.control.touched;
@@ -55,7 +63,6 @@ export class ErrorMessagesComponent {
     return msgErrorRequired + ' ' + this.label.toLowerCase();
   }
 
-
   public isErrorMinlenght(): boolean {
     return this.errorMinlenght && this.control.hasError('minlength') && this.control.dirty && this.control.touched;
   }
@@ -66,6 +73,17 @@ export class ErrorMessagesComponent {
     }
     const minlength = this.toNumberRequiredMinlength(this.control.errors.minlength);
     return `${this.label} deve conter mínimo de ${minlength} caracteres`;
+  }
+
+  public isErrorEmail(): boolean {
+    return this.errorEmail && this.control.hasError('email') && this.control.dirty && this.control.touched;
+  }
+
+  public getTextErrorEmail(): string {
+    if (this.errorEmailText !== '') {
+      return this.errorEmailText;
+    }
+    return `${this.label} inválido`;
   }
 
   private toNumberRequiredMinlength(minlength: any): number | null {
