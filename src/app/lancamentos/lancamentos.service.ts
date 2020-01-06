@@ -23,8 +23,6 @@ export class LancamentosService {
 
   private readonly API_ENDPOINT = 'http://localhost:8080/lancamentos';
 
-  private headers = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-
   constructor(private httpClient: HttpClient) { }
 
   public getLista(filtro: LancamentoFiltro) {
@@ -43,8 +41,7 @@ export class LancamentosService {
       params = params.set('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
 
-    // const params: HttpParams = new HttpParams().set('size', '5').set('page', '1');
-    return this.httpClient.get(this.API_ENDPOINT + '?resumo', {headers: this.headers, params})
+    return this.httpClient.get(this.API_ENDPOINT + '?resumo', {params})
                         .pipe(
                           map((response: any) => {
                             const obj = {
@@ -57,19 +54,19 @@ export class LancamentosService {
   }
 
   public excluir(id: number) {
-    return this.httpClient.delete(`${this.API_ENDPOINT}/${id}`, {headers: this.headers});
+    return this.httpClient.delete(`${this.API_ENDPOINT}/${id}`);
   }
 
   public salvar(lancamento: Lancamento): Observable<Lancamento> | any {
-    return this.httpClient.post(this.API_ENDPOINT, lancamento, {headers: this.headers});
+    return this.httpClient.post(this.API_ENDPOINT, lancamento);
   }
 
   public alterar(lancamento: Lancamento, id: number): Observable<Lancamento> | any {
-    return this.httpClient.put(`${this.API_ENDPOINT}/${id}`, lancamento, {headers: this.headers});
+    return this.httpClient.put(`${this.API_ENDPOINT}/${id}`, lancamento);
   }
 
   public getDados(id: number): Observable<Lancamento> | any {
-    return this.httpClient.get(`${this.API_ENDPOINT}/${id}`, {headers: this.headers})
+    return this.httpClient.get(`${this.API_ENDPOINT}/${id}`)
                 .pipe(map((lancamento: Lancamento) => this.dateStringsToDate(lancamento)));
   }
 
