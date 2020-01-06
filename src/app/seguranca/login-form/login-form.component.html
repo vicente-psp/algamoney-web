@@ -1,5 +1,5 @@
 <div class="container">
-  <form #formulario="ngForm" (ngSubmit)="login(formulario)" class="container-login">
+  <form #formulario="ngForm" (ngSubmit)="login(email.value, senha.value)" class="container-login">
     <div class="ui-md-5 ui-sm-12">
       <div class="ui-g-12 ui-fluid">
         <h1>Login</h1>
@@ -25,7 +25,9 @@
       </div>
 
       <div class="ui-g-12 ui-fluid">
-        <button [disabled]="!formulario.valid" [style.cursor]="!formulario.valid ? 'inherit' : 'pointer'" pButton type="submit" label="Login"></button>
+        <button [disabled]="!formulario.valid"
+         [style.cursor]="!formulario.valid ? 'inherit' : 'pointer'"
+          pButton type="submit" label="Login"></button>
       </div>
     </div>
   </form>
