@@ -12,7 +12,7 @@ import { tap, catchError } from 'rxjs/operators';
 export class AuthService {
 
   private readonly API_ENDPOINT_TOKEN = 'http://localhost:8080/oauth/token';
-  jwtPayload: any;
+  public jwtPayload: any;
 
   constructor(
     private httpClient: HttpClient,
