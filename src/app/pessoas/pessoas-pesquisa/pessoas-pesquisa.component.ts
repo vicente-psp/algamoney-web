@@ -53,6 +53,9 @@ export class PessoasPesquisaComponent implements OnInit, OnDestroy {
       data => {
         this.pessoas = data.content;
         this.totalRegistros = data.total;
+      },
+      err => {
+        this.errorHandlerService.handleError(err);
       }
     );
   }
