@@ -44,7 +44,7 @@ export class AuthService {
       );
   }
 
-  public getRefreshToken() {
+  public getRefreshToken(): any {
     const headers = new HttpHeaders()
         .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==')
         .append('Content-Type', 'application/x-www-form-urlencoded');
