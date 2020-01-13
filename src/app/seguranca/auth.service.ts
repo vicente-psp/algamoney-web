@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 
@@ -27,7 +27,8 @@ export class AuthService {
         .append('Content-Type', 'application/x-www-form-urlencoded');
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
 
-    return this.httpClient.post(this.API_ENDPOINT_TOKEN, body, {headers})
+    return this.httpClient.post(this.API_ENDPOINT_TOKEN, body,
+      {headers, withCredentials: true})
       .pipe(
         tap((response: any) => this.armazenarToken(response.access_token)),
         catchError(err => {
@@ -43,7 +44,26 @@ export class AuthService {
       );
   }
 
+  public getRefreshToken() {
+    const headers = new HttpHeaders()
+        .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==')
+        .append('Content-Type', 'application/x-www-form-urlencoded');
+
+    const body = 'grant_type=refresh_token';
+
+    return this.httpClient.post(this.API_ENDPOINT_TOKEN, body,
+      {headers, withCredentials: true})
+      .pipe(
+       tap((response: any) => this.armazenarToken(response.access_token)),
+       catchError(() => {
+           return of(null);
+         }
+       )
+    );
+  }
+
   private armazenarToken(token: string): void {
+    console.log('armazena token');
     this.jwtPayload = this.jwtHelperService.decodeToken(token);
     localStorage.setItem('token', token);
   }
@@ -58,6 +78,25 @@ export class AuthService {
 
   public isNullOrUndefined(obj: any): boolean {
     return obj === null || obj === undefined;
+  }
+
+  public isAccessTokenInvalido(): boolean {
+    const token = localStorage.getItem('token');
+
+    return !token || this.jwtHelperService.isTokenExpired(token);
+  }
+
+  public temPermissao(permissao: string): boolean {
+    return !this.isNullOrUndefined(this.jwtPayload) && this.jwtPayload.authorities.includes(permissao);
+  }
+
+  public temQualquerPermissao(roles: string[]): boolean {
+    for (const role of roles) {
+      if (this.temPermissao(role)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
