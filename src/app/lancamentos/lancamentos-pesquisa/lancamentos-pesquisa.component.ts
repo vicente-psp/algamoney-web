@@ -8,6 +8,7 @@ import { Table } from 'primeng/table/table';
 import { Subscription, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
+import { AuthService } from 'src/app/seguranca/auth.service';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { LancamentosService, LancamentoFiltro } from './../lancamentos.service';
 
@@ -30,6 +31,7 @@ export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
 
   constructor(
     private lancamentosService: LancamentosService,
+    private authService: AuthService,
     private toastyService: ToastyService,
     private confirmationService: ConfirmationService,
     private errorHandlerService: ErrorHandlerService,
