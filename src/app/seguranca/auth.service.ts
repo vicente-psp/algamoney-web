@@ -63,7 +63,6 @@ export class AuthService {
   }
 
   private armazenarToken(token: string): void {
-    console.log('armazena token');
     this.jwtPayload = this.jwtHelperService.decodeToken(token);
     localStorage.setItem('token', token);
   }
