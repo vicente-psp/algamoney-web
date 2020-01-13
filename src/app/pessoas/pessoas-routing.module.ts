@@ -1,14 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from '../seguranca/auth.guard';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 
 
 const routes: Routes = [
-  { path: 'pessoas', component: PessoasPesquisaComponent },
-  { path: 'pessoas/salvar', component: PessoaCadastroComponent },
-  { path: 'pessoas/salvar/:id', component: PessoaCadastroComponent },
+  {
+    path: 'pessoas',
+    component: PessoasPesquisaComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_PESQUISAR_PESSOA'] }
+  },
+  {
+    path: 'pessoas/salvar',
+    component: PessoaCadastroComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_CADASTRAR_PESSOA'] }
+  },
+  {
+    path: 'pessoas/salvar/:id',
+    component: PessoaCadastroComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_CADASTRAR_PESSOA'] }
+  },
 ];
 
 
