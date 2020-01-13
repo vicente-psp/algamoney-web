@@ -7,20 +7,22 @@ import { ToastyModule } from 'ng2-toasty';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 
-import { NavbarComponent } from './navbar/navbar.component';
 import { ErrorHandlerService } from './error-handler.service';
+import { NaoAutorizadoComponent } from './nao-autorizado.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
 
 @NgModule({
   declarations: [
+    NaoAutorizadoComponent,
     NavbarComponent,
-    PaginaNaoEncontradaComponent
+    PaginaNaoEncontradaComponent,
   ],
   exports: [
+    ConfirmDialogModule,
     NavbarComponent,
     ToastyModule,
-    ConfirmDialogModule,
   ],
   imports: [
     CommonModule,
