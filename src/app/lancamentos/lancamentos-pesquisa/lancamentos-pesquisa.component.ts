@@ -1,16 +1,16 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { ToastyService } from 'ng2-toasty';
 import { ConfirmationService } from 'primeng/api';
 import { LazyLoadEvent } from 'primeng/api/public_api';
 import { Table } from 'primeng/table/table';
-import { Subscription, Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { AuthService } from 'src/app/seguranca/auth.service';
 import { ErrorHandlerService } from './../../core/error-handler.service';
-import { LancamentosService, LancamentoFiltro } from './../lancamentos.service';
+import { LancamentoFiltro, LancamentosService } from './../lancamentos.service';
 
 
 @Component({
@@ -31,7 +31,7 @@ export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
 
   constructor(
     private lancamentosService: LancamentosService,
-    private authService: AuthService,
+    public authService: AuthService,
     private toastyService: ToastyService,
     private confirmationService: ConfirmationService,
     private errorHandlerService: ErrorHandlerService,

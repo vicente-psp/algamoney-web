@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+
+import { environment } from './../../environments/environment';
 
 
 @Injectable({
@@ -9,9 +11,11 @@ import { Observable } from 'rxjs';
 })
 export class CategoriasService {
 
-  private readonly API_ENDPOINT = 'http://localhost:8080/categorias';
+  private API_ENDPOINT: string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.API_ENDPOINT = `${environment.API_ENDPOINT}/categorias`;
+  }
 
   public listAll(): Observable<any> | any {
     return this.httpClient.get(this.API_ENDPOINT);

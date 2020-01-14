@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
@@ -94,7 +94,7 @@ export class LancamentoCadastroComponent implements OnInit {
     );
   }
 
-  public submitForm(form: FormControl): void {
+  public submitForm(form: NgForm): void {
     if (this.lancamentosService.isValidNumber(this.lancamento.id)) {
       this.alterar();
     } else {
@@ -102,7 +102,7 @@ export class LancamentoCadastroComponent implements OnInit {
     }
   }
 
-  public salvar(form: FormControl): void {
+  public salvar(form: NgForm): void {
     this.lancamentosService.salvar(this.lancamento).subscribe(
       () => {
         this.toastyService.success('Lançamento cadastrado com sucesso');
@@ -128,7 +128,7 @@ export class LancamentoCadastroComponent implements OnInit {
     );
   }
 
-  public novoLancamento(form: FormControl): void {
+  public novoLancamento(form: NgForm): void {
     form.reset(new Lancamento());
     this.lancamento = new Lancamento();
     this.router.navigateByUrl('/lancamentos/salvar');

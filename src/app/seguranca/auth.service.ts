@@ -5,20 +5,24 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, throwError, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
+import { environment } from './../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private readonly API_ENDPOINT_OAUTH_TOKEN = 'http://localhost:8080/oauth/token';
-  private readonly API_ENDPOINT_TOKENS = 'http://localhost:8080/tokens';
+  private API_ENDPOINT_OAUTH_TOKEN: string;
+  private API_ENDPOINT_TOKENS: string;
   public jwtPayload: any;
 
   constructor(
     private httpClient: HttpClient,
     private jwtHelperService: JwtHelperService
   ) {
+    this.API_ENDPOINT_OAUTH_TOKEN = `${environment.API_ENDPOINT}/oauth/token`;
+    this.API_ENDPOINT_TOKENS = `${environment.API_ENDPOINT}/tokens`;
     this.carregarToken();
   }
 

@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
+import { environment } from './../../environments/environment';
 import { Lancamento } from '../core/models/lancamento.model';
 
 
@@ -21,9 +22,11 @@ export class LancamentoFiltro {
 })
 export class LancamentosService {
 
-  private readonly API_ENDPOINT = 'http://localhost:8080/lancamentos';
+  private API_ENDPOINT: string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.API_ENDPOINT = `${environment.API_ENDPOINT}/lancamentos`;
+   }
 
   public getLista(filtro: LancamentoFiltro) {
     let params = new HttpParams();

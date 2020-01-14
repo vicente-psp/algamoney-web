@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { environment } from './../../environments/environment';
 import { Pessoa } from '../core/models/pessoa.model';
 
 
@@ -17,9 +19,11 @@ export class PessoaFiltro {
 })
 export class PessoasService {
 
-  private readonly API_ENDPOINT = 'http://localhost:8080/pessoas';
+  private API_ENDPOINT: string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.API_ENDPOINT = `${environment.API_ENDPOINT}/pessoas`;
+   }
 
   public listAll(): Observable<any> | any {
     return this.httpClient.get(this.API_ENDPOINT)

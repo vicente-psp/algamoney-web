@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
@@ -64,7 +64,7 @@ export class PessoaCadastroComponent implements OnInit {
     );
   }
 
-  public submitForm(form: FormControl): void {
+  public submitForm(form: NgForm): void {
     if (this.pessoasService.isValidNumber(this.pessoa.id)) {
       this.alterar();
     } else {
@@ -72,7 +72,7 @@ export class PessoaCadastroComponent implements OnInit {
     }
   }
 
-  public salvar(form: FormControl): void {
+  public salvar(form: NgForm): void {
     this.pessoa.ativo = true;
     this.pessoasService.salvar(this.pessoa).subscribe(
       () => {
@@ -99,7 +99,7 @@ export class PessoaCadastroComponent implements OnInit {
     );
   }
 
-  public novaPessoa(form: FormControl): void {
+  public novaPessoa(form: NgForm): void {
     form.reset(new Pessoa());
     this.pessoa = new Pessoa();
     this.router.navigateByUrl('/pessoas/salvar');
