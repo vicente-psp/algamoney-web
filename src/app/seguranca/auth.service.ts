@@ -11,7 +11,8 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class AuthService {
 
-  private readonly API_ENDPOINT_TOKEN = 'http://localhost:8080/oauth/token';
+  private readonly API_ENDPOINT_OAUTH_TOKEN = 'http://localhost:8080/oauth/token';
+  private readonly API_ENDPOINT_TOKENS = 'http://localhost:8080/tokens';
   public jwtPayload: any;
 
   constructor(
@@ -27,7 +28,7 @@ export class AuthService {
         .append('Content-Type', 'application/x-www-form-urlencoded');
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
 
-    return this.httpClient.post(this.API_ENDPOINT_TOKEN, body,
+    return this.httpClient.post(this.API_ENDPOINT_OAUTH_TOKEN, body,
       {headers, withCredentials: true})
       .pipe(
         tap((response: any) => this.armazenarToken(response.access_token)),
@@ -51,7 +52,7 @@ export class AuthService {
 
     const body = 'grant_type=refresh_token';
 
-    return this.httpClient.post(this.API_ENDPOINT_TOKEN, body,
+    return this.httpClient.post(this.API_ENDPOINT_OAUTH_TOKEN, body,
       {headers, withCredentials: true})
       .pipe(
        tap((response: any) => this.armazenarToken(response.access_token)),
@@ -62,9 +63,19 @@ export class AuthService {
     );
   }
 
+  public logout() {
+    return this.httpClient.delete(`${this.API_ENDPOINT_TOKENS}/revoke`, { withCredentials: true })
+      .pipe(tap(() => this.removerAccessToken()));
+  }
+
   private armazenarToken(token: string): void {
     this.jwtPayload = this.jwtHelperService.decodeToken(token);
     localStorage.setItem('token', token);
+  }
+
+  private removerAccessToken(): void {
+    localStorage.removeItem('token');
+    this.jwtPayload = null;
   }
 
   private carregarToken(): void {
