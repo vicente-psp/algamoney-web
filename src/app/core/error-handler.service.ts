@@ -31,8 +31,9 @@ export class ErrorHandlerService {
         if (errorResponse.status === 403) {
           msg = 'Você não tem permissão para executar esta ação!';
         } else {
-          if (!this.isNullOrUndefined(errorResponse.error[0]) &&
-           !this.isNullOrUndefined(errorResponse.error[0].userMessage)) {
+          if (!this.isNullOrUndefined(errorResponse.error)
+             && !this.isNullOrUndefined(errorResponse.error[0]) &&
+            !this.isNullOrUndefined(errorResponse.error[0].userMessage)) {
              msg = errorResponse.error[0].userMessage;
              if (!this.isNullOrUndefined(errorResponse.error[0].developerMessage)) {
                console.error('Ocorreu um erro', errorResponse.error);
