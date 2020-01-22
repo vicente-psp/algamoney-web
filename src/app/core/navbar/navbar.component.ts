@@ -1,7 +1,8 @@
-import { ErrorHandlerService } from './../error-handler.service';
-import { AuthService } from './../../seguranca/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { AuthService } from './../../seguranca/auth.service';
+import { ErrorHandlerService } from './../error-handler.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class NavbarComponent implements OnInit {
   }
 
   public exibeMenu(): boolean {
-    return this.router.url !== '/login';
+    return this.router.url !== '/login' && this.router.url !== '/';
   }
 
   public logout(): void {
