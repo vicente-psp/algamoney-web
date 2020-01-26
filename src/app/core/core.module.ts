@@ -7,6 +7,9 @@ import { ToastyModule } from 'ng2-toasty';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 
+import { SidebarModule } from 'primeng/sidebar';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+
 import { ErrorHandlerService } from './error-handler.service';
 import { NaoAutorizadoComponent } from './nao-autorizado.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -30,6 +33,9 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
 
     ToastyModule.forRoot(),
     ConfirmDialogModule,
+
+    SidebarModule,
+    TieredMenuModule
   ],
   providers: [
     ErrorHandlerService,
