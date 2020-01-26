@@ -7,17 +7,17 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
 
 
 const routes: Routes = [
-  { path: 'lancamentos',
+  { path: '',
     component: LancamentosPesquisaComponent,
     canActivate: [AuthGuard],
     data: { roles: ['ROLE_PESQUISAR_LANCAMENTO'] }
   },
-  { path: 'lancamentos/salvar',
+  { path: 'salvar',
     component: LancamentoCadastroComponent,
     canActivate: [AuthGuard],
     data: { roles: ['ROLE_CADASTRAR_LANCAMENTO'] }
   },
-  { path: 'lancamentos/salvar/:id',
+  { path: 'salvar/:id',
     component: LancamentoCadastroComponent,
     canActivate: [AuthGuard],
     data: { roles: ['ROLE_CADASTRAR_LANCAMENTO'] }
