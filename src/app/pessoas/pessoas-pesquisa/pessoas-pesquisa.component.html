@@ -1,13 +1,13 @@
 <div class="container">
   <div class="ui-g">
 
-    <form (ngSubmit)="listar()">
+    <form (ngSubmit)="listarClick()">
       <div class="ui-g-12">
         <h1>Pessoas</h1>
       </div>
 
       <div class="ui-g-12 ui-fluid">
-        <label>Descrição</label>
+        <label>Nome</label>
         <input pInputText type="text" name="nome" [(ngModel)]="filtro.nome" (keyup)=keyupNome()>
       </div>
 
@@ -47,9 +47,11 @@
                   </a>
                 </td>
                 <td class="col-acoes">
-                  <a pButton icon="pi pi-pencil" style="margin-right: 1px;" pTooltip="Editar"
-                   tooltipPosition="top" [routerLink]="['salvar', pessoa.id]"></a>
+                  <button pButton icon="pi pi-pencil" style="margin-left: 1px;" pTooltip="Editar"
+                   [disabled]="!authService.temPermissao('ROLE_CADASTRAR_PESSOA')"
+                   tooltipPosition="top" (click)="editarClick(pessoa.id)"></button>
                   <button pButton icon="pi pi-trash" style="margin-left: 1px;" pTooltip="Excluir"
+                   [disabled]="!authService.temPermissao('ROLE_REMOVER_PESSOA')"
                    tooltipPosition="top" (click)="confirmarExclusao(pessoa.id)"></button>
               </td>
             </tr>
@@ -59,7 +61,7 @@
   </div>
 
   <div class="ui-g-12">
-    <a pButton label="Nova pessoa" routerLink="salvar"></a>
+    <a pButton label="Nova pessoa" (click)="novaPessoaClick()"></a>
   </div>
 
 </div>

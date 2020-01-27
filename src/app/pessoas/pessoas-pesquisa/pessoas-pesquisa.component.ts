@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ToastyService } from 'ng2-toasty';
 import { ConfirmationService } from 'primeng/api';
@@ -7,6 +8,7 @@ import { Table } from 'primeng/table/table';
 import { Subscription, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
+import { AuthService } from 'src/app/seguranca/auth.service';
 import { PessoaFiltro, PessoasService } from './../pessoas.service';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 
@@ -29,6 +31,8 @@ export class PessoasPesquisaComponent implements OnInit, OnDestroy {
 
   constructor(
     private pessoasService: PessoasService,
+    public authService: AuthService,
+    private router: Router,
     private confirmationService: ConfirmationService,
     private errorHandlerService: ErrorHandlerService,
     private toastyService: ToastyService
@@ -60,6 +64,10 @@ export class PessoasPesquisaComponent implements OnInit, OnDestroy {
     );
   }
 
+  public listarClick(): void {
+    this.subjectNome.next(this.filtro.nome);
+  }
+
   public nextPage(event: LazyLoadEvent): void {
     const pagina = event.first / event.rows;
     this.listar(pagina);
@@ -73,13 +81,33 @@ export class PessoasPesquisaComponent implements OnInit, OnDestroy {
     this.subjectNome.next(this.filtro.nome);
   }
 
+  public editarClick(id: number): void {
+    if (this.authService.temPermissao('ROLE_CADASTRAR_PESSOA')) {
+      this.router.navigate(['salvar', id]);
+    } else {
+      this.toastyService.error('Você não tem permissão para editar!');
+    }
+  }
+
+  public novaPessoaClick(): void {
+    if (this.authService.temPermissao('ROLE_CADASTRAR_PESSOA')) {
+      this.router.navigateByUrl('salvar');
+    } else {
+      this.toastyService.error('Você não tem permissão para cadastrar pessoas!');
+    }
+  }
+
   public confirmarExclusao(id: number): void {
-    this.confirmationService.confirm({
-      message: `Deseja realmente excluir o registro id ${id}?`,
-      accept: () => {
-        this.excluir(id);
-      }
-    });
+    if (this.authService.temPermissao('ROLE_REMOVER_PESSOA')) {
+      this.confirmationService.confirm({
+        message: `Deseja realmente excluir o registro id ${id}?`,
+        accept: () => {
+          this.excluir(id);
+        }
+      });
+    } else {
+      this.toastyService.error('Você não tem permissão para excluir!');
+    }
   }
 
   private excluir(id: number): void {
