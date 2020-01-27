@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { ToastyService } from 'ng2-toasty';
@@ -12,7 +13,7 @@ import { ErrorHandlerService } from './../../core/error-handler.service';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
 
   public loading = false;
 
@@ -20,8 +21,13 @@ export class LoginFormComponent {
     private authService: AuthService,
     private errorHandlerService: ErrorHandlerService,
     private toastyService: ToastyService,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) { }
+
+  ngOnInit() {
+    this.title.setTitle('Login');
+  }
 
   public login(usuario: string, senha: string): void {
     this.loading = true;
