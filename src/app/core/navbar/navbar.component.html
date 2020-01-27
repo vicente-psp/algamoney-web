@@ -8,11 +8,7 @@
       </div>
     </div>
   </div>
-
-  <ul class="navbar-menu" [hidden]="!showMenu">
-    <li class="navbar-usuario">{{ authService.jwtPayload?.nome}}</li>
-    <li *ngIf="authService.temPermissao('ROLE_PESQUISAR_LANCAMENTO')" class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/lancamentos">Lançamentos</a></li>
-    <li *ngIf="authService.temPermissao('ROLE_PESQUISAR_PESSOA')" class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/pessoas">Pessoas</a></li>
-    <li class="navbar-menuitem"><a href="#" (click)="logout()">Logout</a></li>
-  </ul>
 </nav>
+<p-sidebar [(visible)]="showMenu" class="ui-sidebar-custom" [baseZIndex]="10000" [showCloseIcon]="false">
+  <p-tieredMenu [model]="items"></p-tieredMenu>
+</p-sidebar>
