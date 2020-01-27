@@ -14,6 +14,8 @@ import { ErrorHandlerService } from './../../core/error-handler.service';
 })
 export class LoginFormComponent {
 
+  public loading = false;
+
   constructor(
     private authService: AuthService,
     private errorHandlerService: ErrorHandlerService,
@@ -22,12 +24,15 @@ export class LoginFormComponent {
   ) { }
 
   public login(usuario: string, senha: string): void {
+    this.loading = true;
     this.authService.login(usuario, senha).subscribe(
       () => {
         this.toastyService.success('Usuário logado!');
         this.router.navigateByUrl('/lancamentos');
+        this.authService.loginEventEmitter.next(true);
       },
       err => {
+        this.loading = false;
         this.errorHandlerService.handleError(err);
       }
     );
