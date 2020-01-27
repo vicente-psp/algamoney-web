@@ -83,7 +83,7 @@ export class PessoasPesquisaComponent implements OnInit, OnDestroy {
 
   public editarClick(id: number): void {
     if (this.authService.temPermissao('ROLE_CADASTRAR_PESSOA')) {
-      this.router.navigate(['salvar', id]);
+      this.router.navigate(['pessoas/salvar', id]);
     } else {
       this.toastyService.error('Você não tem permissão para editar!');
     }
@@ -91,7 +91,7 @@ export class PessoasPesquisaComponent implements OnInit, OnDestroy {
 
   public novaPessoaClick(): void {
     if (this.authService.temPermissao('ROLE_CADASTRAR_PESSOA')) {
-      this.router.navigateByUrl('salvar');
+      this.router.navigateByUrl('pessoas/salvar');
     } else {
       this.toastyService.error('Você não tem permissão para cadastrar pessoas!');
     }

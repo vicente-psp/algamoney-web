@@ -107,7 +107,7 @@ export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
 
   public editarClick(id: number): void {
     if (this.authService.temPermissao('ROLE_CADASTRAR_LANCAMENTO')) {
-      this.router.navigate(['salvar', id]);
+      this.router.navigate(['lancamentos/salvar', id]);
     } else {
       this.toastyService.error('Você não tem permissão para editar lançamentos!');
     }
@@ -115,7 +115,7 @@ export class LancamentosPesquisaComponent implements OnInit, OnDestroy {
 
   public novoLancamentoClick(): void {
     if (this.authService.temPermissao('ROLE_CADASTRAR_LANCAMENTO')) {
-      this.router.navigateByUrl('salvar');
+      this.router.navigateByUrl('lancamentos/salvar');
     } else {
       this.toastyService.error('Você não tem permissão para cadastrar lançamentos!');
     }
