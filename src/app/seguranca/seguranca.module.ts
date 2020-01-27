@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { CardModule } from 'primeng/card';
 
 import { AuthGuard } from './auth.guard';
 import { MoneyHttpInterceptor } from './money-http-interceptor';
@@ -27,6 +29,8 @@ export function tokenGetter(): string {
 
     InputTextModule,
     ButtonModule,
+    ProgressBarModule,
+    CardModule,
 
     JwtModule.forRoot({
       config: {
