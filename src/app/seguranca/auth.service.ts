@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, throwError, of } from 'rxjs';
@@ -16,6 +16,8 @@ export class AuthService {
   private API_ENDPOINT_OAUTH_TOKEN: string;
   private API_ENDPOINT_TOKENS: string;
   public jwtPayload: any;
+
+  public loginEventEmitter: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private httpClient: HttpClient,
@@ -111,6 +113,10 @@ export class AuthService {
       }
     }
     return false;
+  }
+
+  public getLoginEventEmitter(): any {
+    return this.loginEventEmitter;
   }
 
 }
