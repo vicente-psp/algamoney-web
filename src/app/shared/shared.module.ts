@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ErrorMessagesComponent } from './error-messages/error-messages.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
   exports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
 
     ErrorMessagesComponent,
   ],
